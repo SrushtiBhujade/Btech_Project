@@ -58,7 +58,7 @@ class ExpenseOut(BaseModel):
     vendor: str
     date: str
     description: str
-    image_path: str
+    image_path: Optional[str] = ""
     created_at: datetime
 
     class Config:

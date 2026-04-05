@@ -33,7 +33,7 @@ brew install tesseract          # macOS
 cd "Btech final project"
 
 # Create virtual environment
-python -m venv venv
+python -m venv venv 
 source venv/bin/activate        # macOS/Linux
 # venv\Scripts\activate          # Windows
 
@@ -60,6 +60,10 @@ cd backend
 uvicorn main:app --reload --port 8000
 ```
 
+#cd Btech_Project
+source venv/bin/activate
+python -m uvicorn backend.main:app --reload
+
 Backend will be live at: http://localhost:8000  
 Swagger docs: http://localhost:8000/docs
 
@@ -69,6 +73,10 @@ Swagger docs: http://localhost:8000/docs
 # Open a new terminal:
 cd frontend
 streamlit run app.py
+
+#cd frontend
+#python -m streamlit run app.py
+
 ```
 
 Frontend will open at: http://localhost:8501
