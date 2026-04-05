@@ -88,3 +88,117 @@ class DashboardSummary(BaseModel):
     top_category: str
     top_category_amount: float
     avg_monthly_spend: float
+
+
+# ----------- Group -----------
+
+class GroupCreate(BaseModel):
+    name: str
+
+
+class GroupUpdate(BaseModel):
+    name: str
+
+
+class GroupJoinRequest(BaseModel):
+    join_code: str
+
+
+class GroupMemberOut(BaseModel):
+    user_id: int
+    user_name: str
+    role: str
+    status: str
+
+    class Config:
+        from_attributes = True
+
+
+class GroupOut(BaseModel):
+    id: str
+    name: str
+    join_code: str
+    created_by: int
+    created_at: datetime
+    members: list[GroupMemberOut] = []
+
+    class Config:
+        from_attributes = True
+
+
+class GroupMemberAction(BaseModel):
+    user_id: int
+    action: str  # ACCEPT, REJECT
+
+
+# ----------- Group Expense -----------
+
+class GroupExpenseCreate(BaseModel):
+    title: str
+    amount: float
+    category: Optional[str] = "Other"
+    image_path: Optional[str] = ""
+    participants: list[int]  # user_ids
+
+
+class ExpenseSplitOut(BaseModel):
+    user_id: int
+    user_name: str
+    amount: float
+
+    class Config:
+        from_attributes = True
+
+
+class GroupExpenseOut(BaseModel):
+    id: int
+    group_id: str
+    paid_by: int
+    payer_name: str
+    title: str
+    amount: float
+    category: str
+    image_path: str
+    date: datetime
+    splits: list[ExpenseSplitOut]
+
+    class Config:
+        from_attributes = True
+
+
+class DebtOut(BaseModel):
+    from_user_id: int
+    from_user_name: str
+    to_user_id: int
+    to_user_name: str
+    amount: float
+
+
+class UserBalance(BaseModel):
+    user_id: int
+    user_name: str
+    net_balance: float  # positive means they are owed, negative means they owe
+
+
+class GroupBalanceOut(BaseModel):
+    balances: list[UserBalance]
+    simplified_debts: list[DebtOut]
+
+
+class CategorySpend(BaseModel):
+    category: str
+    amount: float
+
+
+class UserContribution(BaseModel):
+    user_id: int
+    user_name: str
+    total_paid: float
+
+
+class GroupAnalyticsOut(BaseModel):
+    category_breakdown: list[CategorySpend]
+    member_contributions: list[UserContribution]
+    total_group_spend: float
+    top_spender: str
+    top_category: str

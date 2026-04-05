@@ -9,7 +9,7 @@ env_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env")
 load_dotenv(env_path)
 
 from .database import engine, Base
-from .routers import auth, expenses, analytics, ai_assistant
+from .routers import auth, expenses, analytics, ai_assistant, group
 
 # Create all DB tables on startup
 Base.metadata.create_all(bind=engine)
@@ -34,6 +34,7 @@ app.include_router(auth.router)
 app.include_router(expenses.router)
 app.include_router(analytics.router)
 app.include_router(ai_assistant.router)
+app.include_router(group.router)
 
 
 @app.get("/", tags=["Health"])
